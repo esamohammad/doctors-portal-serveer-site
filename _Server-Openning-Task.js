@@ -1,7 +1,7 @@
 /*
-============================================================================
-******************** Start the Server on the grass root ********************
-============================================================================
+==========================================
+*** Start the Server on the grass root ***
+==========================================
 
 
 1.
@@ -82,10 +82,224 @@ app listening on port 5000 (ai lekha ashbe cmd te -- ensure it)
 http://localhost:5000/ 
 (open it on your browser)
 
-============================================================================
-************** Ok, Server is ready but now set the database. ***************
-============================================================================
+=====================================================
+*** Ok, Server is ready but now set the database. ***
+=====================================================
+
+
+=====================================================
+*** MongoDB Atlas Sign in***
+=====================================================
+20.
+go to mongodb.(https://www.mongodb.com/compare/mongodb-mysql)
+
+21. 
+sign in with google.
+
+22.
++New project click.
+
+23.
+Set Name for Project (next click)
+
+24.
+create a project (go with as it is click)
+
+=====================================================
+*** MongoDB Database Intregation***
+=====================================================
+
+
+
+
+
+
+
+25.
+build a database (click)
+
+26.
+create FREE (click) 
+
+27.
+create cluster. (click) {it set a cluster in cloud.}
+
+28.
+user name & password set and keep it.save it.
+
+29.
+user name & password set and keep it .env file
+such as-
+DB_USER=doctor_admin
+DB_PASS=RV5WXhuRUrwnd5Ky
+
+30.
+Networks Acsses. click
+
+31.
+Add ip Address. click
+
+32. Allow access from anywhere . click
+
+33.confirm. click
+
+34.Database. click
+
+35.Connect. click
+
+36.connect your application. click
+
+37. check the box. click
+
+38.
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+(import it on 3rd line in index.js file)
+
+39.
+const uri = "mongodb+srv://doctor_admin:<password>@cluster0.r9bykuu.mongodb.net/?retryWrites=true&w=majority";
+
+(uri copy kore paste bellow middle ware in index.js)
+
+40.
+const uri = `mongodb+srv://doctor_admin:<password>@cluster0.r9bykuu.mongodb.net/?retryWrites=true&w=majority`;
+(convert uri in templete srinng )
+
+41.
+replace- doctor_admin and set ${process.env.DB_USER}   
+
+42.
+replace- <password> and set ${process.env.DB_PASS}   
+
+43.finally looked--
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS} @cluster0.r9bykuu.mongodb.net/?retryWrites=true&w=majority`;
+
+{{console.log(uri);   just ckeck koro--arokom asbe on cmd }}
+{{mongodb+srv://doctor_admin:RV5WXhuRUrwnd5Ky @}}
+
+
+44.
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+{{const client ..copy kore paste uri ar niche}}
+
+
+45. 
+async function run(){
+
+}
+run().catch(console.dir);
+
+{{((async function nibo clint ar niche--))}}
+
+
+46. 
+try{
+await client.connect();
+consol.log('Database Connect')
+}
+
+finnaly{
+
+}
+
+((( try ,finally nibo function ar modhhe--)))
+
+47.
+((browseCollection a jabo))
+
+48.
+((add my own data)) click
+
+49.
+set name .. doctors_portal
+collection name.. services  ((note -- plural)
+ create . ((click))
+
+
+50. 
+client theke service.json theke data copy kore ante hobe ,
+id omit kore copy.(select kore control D ar por end arpor backspace)
+
+51.
+paste data in insert document.
+((service pathalam))
+
+52.
+((abar sei sarvice load korbo))
+
+try{
+        await client.connect();
+        const serviceCollection = client.db('doctors_portal').collection('services');
+
+        app.get('/service', async(req, res) =>{
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.toArray();
+            res.send(services);
+        })
+
+
+    }
+    finally{
+
+    }
+
+
+
+
+53. ((try ke function ar modhe rakhte hobe- final look))
+
+async function run(){
+    try{
+        await client.connect();
+        const serviceCollection = client.db('doctors_portal').collection('services');
+
+        app.get('/service', async(req, res) =>{
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.toArray();
+            res.send(services);
+        })
+
+
+    }
+    finally{
+
+    }
+}
+
+54.
+http://localhost:5000/service 
+
+ai port a data gulo show korbe, chech it--
+
+
+
+55.
+if we get data in http://localhost:5000/service then--
+we fetch it on our client site--
+
+available appointment a avabe bosabo,
+fetch('services.json')  omit kore ---
+fetch('http://localhost:5000/service') --ata set korbo.
+
+====== tahole amra abar data gulo dekhte pabo.ok======
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

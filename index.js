@@ -22,13 +22,23 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 async function run() {
-  try {
+  try{
     await client.connect();
-    console.log("Database connected Alhamdulillah Alhamdulillah Alhamdullillah")
-  }
-  finally {
+    const serviceCollection = client.db('doctors_portal').collection('services');
 
-  }
+    app.get('/service', async(req, res) =>{
+        const query = {};
+        const cursor = serviceCollection.find(query);
+        const services = await cursor.toArray();
+        res.send(services);
+    })
+
+
+}
+finally{
+
+}
+
 }
 
 run().catch(console.dir);
