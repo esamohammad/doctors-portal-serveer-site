@@ -22,7 +22,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 async function run() {
-  try{
+  try {
     await client.connect();
     //service gulo
     const serviceCollection = client.db('doctors_portal').collection('services');
@@ -30,31 +30,43 @@ async function run() {
     //bookings gulo
     const bookingCollection = client.db('doctors_portal').collection('bookings');
 
-    
-    app.get('/service', async(req, res) =>{
-        const query = {};
-        const cursor = serviceCollection.find(query);
-        const services = await cursor.toArray();
-        res.send(services);
+
+    app.get('/service', async (req, res) => {
+      const query = {};
+      const cursor = serviceCollection.find(query);
+      const services = await cursor.toArray();
+      res.send(services);
+    });
+
+    /***
+    ===================================================
+           * API Naming Convention 
+    ====================================================
+           * app.get('/bookings') -- get all
+           * app.get('/bookings/:id') -- get one
+           * app.post('/bookings') --add a new create
+           * app.patch('/bookings/:id') -- update one
+           * app.delete('/bookings/:id') -- delete one
+    ====================================================
+    ====================================================
+    */
+
+    app.post('/bookings', async (req, res) => {
+      const booking = req.body;
+      const rejult = await bookingCollection.insertOne(booking);
+      res.send(rejult);
+
     })
 
-  /***
-  ===================================================
-         * API Naming Convention 
-  ====================================================
-         * app.get('/bookings') -- get all
-         * app.get('/bookings/:id') -- get one
-         * app.post('/bookings') --add a new create
-         * app.patch('/bookings/:id') -- update one
-         * app.delete('/bookings/:id') -- delete one
-  ====================================================
-  ====================================================
-  */
- 
-}
-finally{
 
-}
+
+
+
+
+  }
+  finally {
+
+  }
 
 }
 
