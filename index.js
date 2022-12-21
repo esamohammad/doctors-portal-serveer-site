@@ -24,8 +24,13 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
   try{
     await client.connect();
+    //service gulo
     const serviceCollection = client.db('doctors_portal').collection('services');
 
+    //bookings gulo
+    const bookingCollection = client.db('doctors_portal').collection('bookings');
+
+    
     app.get('/service', async(req, res) =>{
         const query = {};
         const cursor = serviceCollection.find(query);
@@ -45,12 +50,7 @@ async function run() {
   ====================================================
   ====================================================
   */
-
-
-
-
-
-
+ 
 }
 finally{
 
