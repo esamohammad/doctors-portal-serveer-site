@@ -33,6 +33,23 @@ async function run() {
         res.send(services);
     })
 
+  /***
+  ===================================================
+         * API Naming Convention 
+  ====================================================
+         * app.get('/bookings') -- get all
+         * app.get('/bookings/:id') -- get one
+         * app.post('/bookings') --add a new create
+         * app.patch('/bookings/:id') -- update one
+         * app.delete('/bookings/:id') -- delete one
+  ====================================================
+  ====================================================
+  */
+
+
+
+
+
 
 }
 finally{
