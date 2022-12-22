@@ -85,6 +85,17 @@ async function run() {
     ====================================================
     */
 
+
+    //server theke data niye ta dashbod a dekhano
+    app.get('/booking', async (req, res) => {
+      const patient = req.query.patient;
+      const query = { patient: patient };
+      const bookings = await bookingCollection.find(query).toArray();
+      res.send(bookings);
+    })
+
+
+
     app.post('/bookings', async (req, res) => {
       const booking = req.body;
       const find = { treatment: booking.treatment, date: booking.date, patient: booking.patient }
