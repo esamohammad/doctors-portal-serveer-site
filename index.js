@@ -39,6 +39,17 @@ async function run() {
       res.send(services);
     });
 
+app.get('/available',async(req,res)=>{
+  const date =req.query.date || "Dec 22, 2022";
+
+  // step 1:  get all services
+  const services = await serviceCollection.find().toArray();
+  res.send(services);
+
+
+})
+
+
     /***
     ===================================================
            * API Naming Convention 
