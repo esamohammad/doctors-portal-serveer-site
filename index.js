@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { query } = require('express');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -53,8 +54,8 @@ async function run() {
 
     app.post('/bookings', async (req, res) => {
       const booking = req.body;
-      const quary = { treatment: booking.treatment, date: booking.date, patient: booking.patient };
-      const exists = await bookingCollection.findOne(query);
+      const find = { treatment: booking.treatment, date: booking.date, patient: booking.patient }
+      const exists = await bookingCollection.findOne(find);
       if (exists) {
         return res.send({ success: false, booking: exists })
       }
