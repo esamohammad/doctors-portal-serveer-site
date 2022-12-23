@@ -31,6 +31,8 @@ async function run() {
     //bookings gulo
     const bookingCollection = client.db('doctors_portal').collection('bookings');
 
+    // admin role 1 user collection
+    const usersCollection = client.db('doctorsPortal').collection('users');
 
     app.get('/service', async (req, res) => {
       const query = {};
@@ -38,8 +40,7 @@ async function run() {
       const services = await cursor.toArray();
       res.send(services);
     });
-    const usersCollection = client.db('doctorsPortal').collection('users');
-// admin role 1
+
 
 
 
