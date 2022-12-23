@@ -38,6 +38,8 @@ async function run() {
       const services = await cursor.toArray();
       res.send(services);
     });
+    const usersCollection = client.db('doctorsPortal').collection('users');
+// admin role 1
 
 
 
@@ -86,7 +88,7 @@ async function run() {
     */
 
 
-    //server theke data niye ta dashbod a dekhano
+    //
     app.get('/booking', async (req, res) => {
       const patient = req.query.patient;
       const query = { patient: patient };
