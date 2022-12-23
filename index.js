@@ -41,9 +41,20 @@ async function run() {
       res.send(services);
     });
 
+    app.put('/users/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = req.body;
+      const filter = { email: email };
+      const option = { upsert: true };
+      const updateDoc = {
+        $set: {
+          plot: user,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedDoc, option);
+      res.send(result);
 
-
-
+    })
 
     // Warning: This is not the proper way to query multiple collection. 
     // After learning more about mongodb. use aggregate, lookup, pipeline, match, group
