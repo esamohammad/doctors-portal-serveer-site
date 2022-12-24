@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const jwt =require('jsonwebtoken')
+const jwt =require('jsonwebtoken');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const { query } = require('express');
@@ -142,4 +142,5 @@ app.listen(port, () => {
 })
 
 
-
+// jwt token ar somoy ata terminale nod kore ber korte hobe
+// require('crypto').randomBytes(64).toString('hex')
