@@ -81,7 +81,7 @@ async function run() {
 
 
 
-
+//admin role----
     //user ke server a update ar por admin field toiri
     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
