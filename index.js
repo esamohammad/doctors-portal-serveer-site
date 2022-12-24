@@ -66,6 +66,36 @@ async function run() {
       res.send(users);
     });
 
+
+
+
+
+
+    //user ke server a update ar por admin field toiri
+    app.put('/user/admin/:email', verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      // const user = req.body;// body theke ar kisu nibo na 
+      const filter = { email: email };
+      // const options = { upsert: true }; // atao no send
+      const updateDoc = {
+        $set: {
+          role: 'admin' //role holo se akjon admin roomer owner
+        },
+      };
+      const result = await userCollection.updateOne(filter, updateDoc);
+      //option tao bad
+      // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+      //akhne tocke issu korar kono karbar nai .
+      res.send(result); //result take pathaye dibo.
+
+    })
+
+
+
+
+
+
+    //uer ke server a update
     app.put('/user/:email', async (req, res) => {
       const email = req.params.email;
       const user = req.body;
