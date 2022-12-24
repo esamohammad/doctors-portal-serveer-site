@@ -123,10 +123,18 @@ async function run() {
       const patient = req.query.patient;
       // const authorization = req.headers.authorization;
       //ata upore function banabo.
-      console.log('auth header', authorization);
-      const query = { patient: patient };
-      const bookings = await bookingCollection.find(query).toArray();
-      res.send(bookings);
+      // console.log('auth header', authorization);
+      // sequrity ar jonno console off kora amar token ache - onner totho dekhte chai,,
+
+      const decodedEmail = req.decoded.email;
+      if (patient === decodedEmail) {
+        const query = { patient: patient };
+        const bookings = await bookingCollection.find(query).toArray();
+        return res.send(bookings);
+      }
+      else {
+        return res.status(403).send({ message: 'forbidden access' });
+      }
     })
 
 
