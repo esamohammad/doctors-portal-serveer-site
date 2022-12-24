@@ -70,6 +70,17 @@ async function run() {
 
 
 
+    //requre auth ar moto requre admin
+    app.get('/admin/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = await userCollection.findOne({ email: email });
+      const isAdmin = user.role === 'admin';
+      res.send({ admin: isAdmin })
+    })
+
+
+
+
 
     //user ke server a update ar por admin field toiri
     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
