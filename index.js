@@ -60,6 +60,7 @@ async function run() {
 
     app.get('/user',  async (req, res) => {
       const users = await userCollection.find().toArray();
+      //ak line a lekha , dui liner code.
       res.send(users);
     });
 
