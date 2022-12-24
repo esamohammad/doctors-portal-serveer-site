@@ -58,7 +58,9 @@ async function run() {
       res.send(services);
     });
 
-    app.get('/user',  async (req, res) => {
+
+    //user ke sequrity ,keu dekhte parbe na ,jwt token add 
+    app.get('/user', verifyJWT, async (req, res) => {
       const users = await userCollection.find().toArray();
       //ak line a lekha , dui liner code.
       res.send(users);
