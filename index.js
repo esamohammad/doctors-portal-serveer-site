@@ -75,19 +75,39 @@ async function run() {
     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       // const user = req.body;// body theke ar kisu nibo na 
-      const filter = { email: email };
-      // const options = { upsert: true }; // atao no send
-      const updateDoc = {
-        $set: {
-          role: 'admin' //role holo se akjon admin roomer owner
-        },
-      };
-      const result = await userCollection.updateOne(filter, updateDoc);
-      //option tao bad
-      // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-      //akhne tocke issu korar kono karbar nai .
-      res.send(result); //result take pathaye dibo.
+      const requester = req.decoded.email;
+      const requesterAccount = await userCollection.findOne({ email: requester });
 
+      if (requesterAccount.role === 'admin') {
+        const filter = { email: email };
+        const updateDoc = {
+          $set: { role: 'admin' },
+        };
+        const result = await userCollection.updateOne(filter, updateDoc);
+        res.send(result);
+
+      }
+      else {
+        res.status(403).send({ message: 'forbidden' });
+      }
+
+
+
+      /*
+      
+            const filter = { email: email };
+            // const options = { upsert: true }; // atao no send
+            const updateDoc = {
+              $set: {
+                role: 'admin' //role holo se akjon admin roomer owner
+              },
+            };
+            const result = await userCollection.updateOne(filter, updateDoc);
+            //option tao bad
+            // const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+            //akhne tocke issu korar kono karbar nai .
+            res.send(result); //result take pathaye dibo.
+      */
     })
 
 
