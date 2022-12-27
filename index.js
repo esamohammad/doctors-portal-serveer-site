@@ -51,9 +51,14 @@ async function run() {
     // admin role 1 user collection
     const userCollection = client.db('doctors_portal').collection('users');
 
+
+    //doctorCollection
+    const doctorCollection = client.db('doctors_portal').collection('doctors');
+
+
     app.get('/service', async (req, res) => {
       const query = {};
-      const cursor = serviceCollection.find(query);
+      const cursor = serviceCollection.find(query).project({ name: 1 });
       const services = await cursor.toArray();
       res.send(services);
     });
@@ -81,7 +86,7 @@ async function run() {
 
 
 
-//admin role----
+    //admin role----
     //user ke server a update ar por admin field toiri
     app.put('/user/admin/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
@@ -218,6 +223,17 @@ async function run() {
       const result = await bookingCollection.insertOne(booking);
       return res.send({ success: true, result });
     })
+
+    //doctor image ,nam ,file
+    app.post('/doctor', async (req, res) => {
+      const doctor = req.body;
+      const result = await doctorCollection.insertOne(doctor);
+      res.send(result);
+    });
+
+
+
+
 
   }
   finally {
