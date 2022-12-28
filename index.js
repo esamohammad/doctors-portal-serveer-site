@@ -206,6 +206,8 @@ async function run() {
 
 
 
+
+
     app.post('/bookings', async (req, res) => {
       const booking = req.body;
       const find = { treatment: booking.treatment, date: booking.date, patient: booking.patient }
@@ -216,6 +218,23 @@ async function run() {
       const result = await bookingCollection.insertOne(booking);
       return res.send({ success: true, result });
     })
+
+
+    //doctor list data sob ui te pathano
+
+    app.get('/doctor', verifyJWT, verifyAdmin, async (req, res) => {
+      const doctors = await doctorCollection.find().toArray();
+      res.send(doctors);
+    })
+
+
+
+
+
+
+
+
+
 
     //doctor image ,nam ,file
     app.post('/doctor', verifyJWT, verifyAdmin, async (req, res) => {
